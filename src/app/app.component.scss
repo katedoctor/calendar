@@ -1,0 +1,10 @@
+.content {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 5%;
+  > div {
+    padding: 50px;
+  }
+}

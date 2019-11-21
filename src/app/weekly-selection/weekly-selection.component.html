@@ -1,0 +1,37 @@
+<div class="calendar__wrapper">
+  <div class="calendar__input-wrapper" (click)="show = !show">
+    <input readonly class="calendar__input" [(ngModel)]="selectedDate">
+    <img class="icon_calendar" [src]="'assets/calendar-icon.png'" alt="calendar icon" />
+  </div>
+  <div class="calendar" *ngIf="show" #calendar>
+    <div class="calendar__navs">
+      <div class="calendar__month-nav">
+        <button class="calendar__nav-btn" (click)="prevMonth()">&lt;</button>
+        <span>{{currentDate.format('MMMM').toUpperCase()}}  {{currentDate.format('YYYY')}}</span>
+        <button class="calendar__nav-btn" [disabled]="!isDisabledMonth(currentDate)" (click)="nextMonth()">&gt;</button>
+      </div>
+    </div>
+    <div class="calendar__month">
+      <div class="calendar__day-names">
+        <div class="calendar__day-name" *ngFor="let name of namesOfDays">{{name}}</div>
+      </div>
+      <div class="calendar__weeks">
+        <div class="calendar__week" *ngFor="let week of weeks"  (click)="selectDate(week)">
+          <ng-container *ngFor="let day of week">
+            <div class="calendar__date"
+                 [ngClass]="{
+                'disabled': !isDayBeforeLastSat(day.mDate),
+                'prev': !isSelectedMonth(day.mDate) && isDayBeforeLastSat(day.mDate),
+                'today': day.today,
+                'selected': day.selected
+              }"
+            >
+              <span class="calendar__number">{{day.mDate.date()}}</span>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
